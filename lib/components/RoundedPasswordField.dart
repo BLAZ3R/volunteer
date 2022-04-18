@@ -5,9 +5,12 @@ import 'TextFieldContainer.dart';
 
 class RoundedPasswordField extends StatefulWidget {
   final ValueChanged<String> onChanged;
+  FormFieldValidator<String>? validator;
+
   RoundedPasswordField({
     Key? key,
     required this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -20,7 +23,8 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
+        validator: widget.validator,
         obscureText: !_passwordVisible,
         onChanged: widget.onChanged,
         cursorColor: Colors.black,

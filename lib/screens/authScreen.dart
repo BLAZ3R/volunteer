@@ -28,7 +28,6 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-/*
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -95,7 +94,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 ],
               ),
             ),
-
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Почта",
@@ -126,11 +124,9 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ],
             )
-
           ],
         ),
       )),
-*/
     );
   }
 }

@@ -20,8 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: RepositoryProvider(
-          create: (context) => AuthApi(),
-          child:  LoginView()),
+          create: (context) => AuthApi(), child: LoginView()),
     );
   }
 }
