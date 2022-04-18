@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:volunteer/data/api/AuthApi.dart';
+import 'package:volunteer/logic/blocs/auth/login/login_view.dart';
 import 'package:volunteer/screens/authScreen.dart';
 
 void main() {
@@ -16,7 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const AuthScreen(),
+      home: RepositoryProvider(
+          create: (context) => AuthApi(),
+          child:  LoginView()),
     );
   }
 }

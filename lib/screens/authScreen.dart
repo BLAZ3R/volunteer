@@ -28,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+/*
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -125,116 +126,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ],
             )
-            // AlreadyHaveAnAccountCheck(
-            //   press: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) {
-            //           return SignUpScreen();
-            //         },
-            //       ),
-            //     );
-            //   },
-            // ),
+
           ],
         ),
-        // child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Container(
-        //       width: 220,
-        //       height: 35,
-        //       decoration: BoxDecoration(
-        //         color: Color(0xFFEEEEEE),
-        //         borderRadius: BorderRadius.circular(16),
-        //       ),
-        //       child: Row(
-        //         mainAxisSize: MainAxisSize.max,
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Center(
-        //             child: InkWell(
-        //               onTap: () async {
-        //                 setState(() {
-        //                   _index = 0;
-        //                 });
-        //               },
-        //               child: Container(
-        //                 width: _index == 0 ? 130 : 100,
-        //                 height: 35,
-        //                 decoration: BoxDecoration(
-        //                   color: _index == 0 ? Colors.white : Colors.grey,
-        //                   borderRadius: BorderRadius.circular(16),
-        //                 ),
-        //                 child: const Text('Волонтер',
-        //                     textAlign: TextAlign.center,
-        //                     style: TextStyle(
-        //                       color: Colors.black,
-        //                       fontSize: 15,
-        //                     )),
-        //               ),
-        //             ),
-        //           ),
-        //           Center(
-        //             child: InkWell(
-        //               onTap: () async {
-        //                 setState(() {
-        //                   _index = 1;
-        //                 });
-        //               },
-        //               child: Container(
-        //                 width: _index == 1 ? 130 : 100,
-        //                 height: 35,
-        //                 decoration: BoxDecoration(
-        //                   color: _index == 1 ? Colors.white : Colors.grey,
-        //                   borderRadius: BorderRadius.circular(16),
-        //                 ),
-        //                 child: const Text('Организация',
-        //                     textAlign: TextAlign.center,
-        //                     style: TextStyle(
-        //                       color: Colors.black,
-        //                       fontSize: 15,
-        //                     )),
-        //               ),
-        //             ),
-        //           )
-        //         ],
-        //       ),
-        //     ),
-        //     TextFormField(
-        //         controller: textController,
-        //         obscureText: false,
-        //         decoration: const InputDecoration(
-        //           isDense: true,
-        //           enabledBorder: UnderlineInputBorder(
-        //             borderSide: BorderSide(
-        //               color: Color(0x00000000),
-        //               width: 1,
-        //             ),
-        //             borderRadius: BorderRadius.only(
-        //               topLeft: Radius.circular(4.0),
-        //               topRight: Radius.circular(4.0),
-        //             ),
-        //           ),
-        //           focusedBorder: UnderlineInputBorder(
-        //             borderSide: BorderSide(
-        //               color: Color(0x00000000),
-        //               width: 1,
-        //             ),
-        //             borderRadius: BorderRadius.only(
-        //               topLeft: Radius.circular(4.0),
-        //               topRight: Radius.circular(4.0),
-        //             ),
-        //           ),
-        //         ),
-        //         style: const TextStyle(
-        //           color: Colors.black,
-        //           fontSize: 15,
-        //         )),
-        //   ],
-        // ),
       )),
+*/
     );
   }
 }
