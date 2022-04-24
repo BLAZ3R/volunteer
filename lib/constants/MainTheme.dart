@@ -60,7 +60,7 @@ abstract class MainTheme {
 }
 
 class LightModeTheme extends MainTheme {
-  Color primaryColor = const Color(0xFF5A081F);
+  Color primaryColor = Color.fromARGB(255, 4, 202, 50);
   Color secondaryColor = const Color(0xFFA78B5A);
   Color tertiaryColor = const Color(0xFF5B5B5B);
   Color alternate = const Color(0xFFFF5963);

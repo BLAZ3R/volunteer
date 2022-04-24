@@ -6,7 +6,6 @@ import 'package:volunteer/logic/blocs/form_submission_status.dart';
 
 import 'login_state.dart';
 
-
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthApi authRepo;
 
@@ -28,6 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         await authRepo.login();
+
         yield state.copyWith(formStatus: SubmissionSuccess());
       } catch (e) {
         yield state.copyWith(formStatus: SubmissionFailed(e as Exception));

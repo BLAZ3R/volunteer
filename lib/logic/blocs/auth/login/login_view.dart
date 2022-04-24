@@ -7,6 +7,8 @@ import 'package:volunteer/data/api/AuthApi.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_bloc.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_event.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_state.dart';
+import 'package:volunteer/screens/navbarScreen.dart';
+import 'package:volunteer/screens/profileScreen.dart';
 
 import '../../../../constants/MainTheme.dart';
 import '../../../../screens/signUpScreen.dart';
@@ -46,6 +48,15 @@ class _LoginViewState extends State<LoginView> {
           final formStatus = state.formStatus;
           if (formStatus is SubmissionFailed) {
             _showSnackBar(context, formStatus.exception.toString());
+          }
+          if (formStatus is SubmissionSuccess) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NavBarScreen(
+                          initialPage: 'ProfileScreen',
+                        )),
+                (route) => false);
           }
         },
         child: SafeArea(
