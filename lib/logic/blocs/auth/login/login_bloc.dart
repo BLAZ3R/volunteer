@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:volunteer/data/api/AuthApi.dart';
+import 'package:volunteer/data/models/LoginRequest.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_event.dart';
 import 'package:volunteer/logic/blocs/form_submission_status.dart';
 
+import '../../../../data/models/User.dart';
 import 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -26,11 +28,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(formStatus: FormSubmitting());
 
       try {
-        await authRepo.login();
-
-        yield state.copyWith(formStatus: SubmissionSuccess());
+        bool val = await authRepo
+            .login(LoginRequest(email: state.email, password: state.password));
+        if (val) {
+          yield state.copyWith(formStatus: SubmissionSuccess());
+        }
       } catch (e) {
-        yield state.copyWith(formStatus: SubmissionFailed(e as Exception));
+        Exception ex = Exception("Неправильная почта или пароль");
+        yield state.copyWith(formStatus: SubmissionFailed(ex as Exception));
       }
     }
   }

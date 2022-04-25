@@ -10,9 +10,9 @@ import 'package:volunteer/logic/blocs/auth/login/login_state.dart';
 import 'package:volunteer/screens/navbarScreen.dart';
 import 'package:volunteer/screens/profileScreen.dart';
 
-import '../../../../constants/MainTheme.dart';
-import '../../../../screens/signUpScreen.dart';
-import '../../form_submission_status.dart';
+import '../constants/MainTheme.dart';
+import 'signUpScreen.dart';
+import '../logic/blocs/form_submission_status.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -47,7 +47,8 @@ class _LoginViewState extends State<LoginView> {
         listener: (context, state) {
           final formStatus = state.formStatus;
           if (formStatus is SubmissionFailed) {
-            _showSnackBar(context, formStatus.exception.toString());
+            print(
+                "ex"); // _showSnackBar(context, formStatus.exception.toString());
           }
           if (formStatus is SubmissionSuccess) {
             Navigator.pushAndRemoveUntil(

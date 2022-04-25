@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:volunteer/constants/MainTheme.dart';
+import 'package:volunteer/screens/login_view.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -189,13 +190,13 @@ class ProfileScreen extends StatelessWidget {
                       InkWell(
                         onTap: () async {
                           // await signOut();
-                          // await Navigator.pushAndRemoveUntil(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => AuthPageWidget(),
-                          //   ),
-                          //   (r) => false,
-                          // );
+                          await Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginView(),
+                            ),
+                            (r) => false,
+                          );
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
