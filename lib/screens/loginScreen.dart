@@ -7,6 +7,7 @@ import 'package:volunteer/data/api/AuthApi.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_bloc.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_event.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_state.dart';
+import 'package:volunteer/logic/util/util.dart';
 import 'package:volunteer/screens/navbarScreen.dart';
 import 'package:volunteer/screens/profileScreen.dart';
 
@@ -46,16 +47,13 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           final formStatus = state.formStatus;
-          if (formStatus is SubmissionFailed) {
-            print(
-                "ex"); // _showSnackBar(context, formStatus.exception.toString());
-          }
+
           if (formStatus is SubmissionSuccess) {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                     builder: (context) => NavBarScreen(
-                          initialPage: 'ProfileScreen',
+                          initialPage: 'HomeScreen',
                         )),
                 (route) => false);
           }
@@ -184,6 +182,8 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _loginButton(Size size) {
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      final formStatus = state.formStatus;
+
       return Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         width: size.width,
@@ -197,6 +197,10 @@ class _LoginViewState extends State<LoginView> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 context.read<LoginBloc>().add(LoginSubmitted());
+              }
+
+              if (formStatus is SubmissionFailed) {
+                showSnackbar(context, formStatus.exception.toString());
               }
             },
             style: ElevatedButton.styleFrom(

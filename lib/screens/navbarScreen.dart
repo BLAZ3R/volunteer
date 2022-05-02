@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:volunteer/constants/MainTheme.dart';
+import 'package:volunteer/data/api/UserApi.dart';
+import 'package:volunteer/screens/HomeScreen.dart';
+import 'package:volunteer/screens/mapOfEventsScreen.dart';
 import 'package:volunteer/screens/profileScreen.dart';
+
+import 'loginScreen.dart';
 
 class NavBarScreen extends StatefulWidget {
   const NavBarScreen({Key? key, required this.initialPage}) : super(key: key);
@@ -25,8 +30,8 @@ class _NavBarScreenState extends State<NavBarScreen> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomeScreen': Container(),
-      'CreateScreen': Container(),
+      'HomeScreen': const HomeScreeen(),
+      'CreateScreen': MapOfEventsScreen(),
       'ProfileScreen': ProfileScreen(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);

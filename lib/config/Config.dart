@@ -6,6 +6,7 @@ class Config {
   static const String login = 'user/loginUser';
   static const String updateDataUser = 'user/updateDataUser';
   static const String deleteUser = 'user/deleteUser';
+  static const String getUser = 'user/getUser';
   static const String getByEmail = 'user/getByEmail';
   static const String getUserEmail = 'user/getUserEmail';
 }

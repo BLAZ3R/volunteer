@@ -30,8 +30,8 @@ abstract class MainTheme {
   TextStyle get title3 => GoogleFonts.getFont(
         'Open Sans',
         color: primaryText,
-        fontWeight: FontWeight.w500,
-        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        fontSize: 16,
       );
   TextStyle get subtitle1 => GoogleFonts.getFont(
         'Open Sans',
@@ -55,7 +55,7 @@ abstract class MainTheme {
         'Open Sans',
         color: secondaryText,
         fontWeight: FontWeight.w400,
-        fontSize: 14,
+        fontSize: 13,
       );
 }
 

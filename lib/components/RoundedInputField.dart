@@ -27,8 +27,20 @@ class RoundedInputField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black, width: 1.0),
           ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 1.0),
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black, width: 1.0),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black, width: 1.0),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red, width: 1.0),
           ),
           hintText: hintText,
         ),
