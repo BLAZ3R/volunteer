@@ -30,7 +30,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomeScreen': const HomeScreeen(),
+      'HomeScreen': HomeScreeen(),
       'CreateScreen': MapOfEventsScreen(),
       'ProfileScreen': ProfileScreen(),
     };

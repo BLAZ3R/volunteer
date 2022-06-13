@@ -33,4 +33,16 @@ class AuthApi {
     } else
       throw Exception('Ошибка');
   }
+
+  Future<bool> createOrganization(User user) async {
+    Response response = await _client
+        .post('${Config.apiUrl}${Config.createOrganizer}', data: user.toJson());
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return true;
+    } else if (response.statusCode == 401 && response.statusCode == 400) {
+      throw Exception(response.statusMessage);
+    } else
+      throw Exception('Ошибка');
+  }
 }

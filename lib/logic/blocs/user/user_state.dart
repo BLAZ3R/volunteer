@@ -23,6 +23,14 @@ class UserLoadSuccess extends UserState {
   List<Object> get props => [user];
 }
 
+class UsersLoadSuccess extends UserState {
+  final List<Volunteer> users;
+  const UsersLoadSuccess({required this.users});
+
+  @override
+  List<Object> get props => [users];
+}
+
 class UserLoadFailure extends UserState {
   final String errorMessage;
   const UserLoadFailure({required this.errorMessage});

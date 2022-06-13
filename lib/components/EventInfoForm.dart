@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:volunteer/constants/MainTheme.dart';
 
@@ -21,6 +24,9 @@ class EventInfoFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UriData? data = Uri.parse(url).data;
+    Uint8List? myImage = data?.contentAsBytes();
+    // Uint8List _imageBytes = Base64Decoder().convert(url);
     return Container(
       width: width,
       height: height,
@@ -40,10 +46,14 @@ class EventInfoFormWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: Stack(
           children: [
-            Image.network(
-              url,
+            Image.memory(
+              myImage!,
               fit: BoxFit.cover,
             ),
+            // Image.network(
+            //   url,
+            //   fit: BoxFit.cover,
+            // ),
             Positioned(
                 top: 60,
                 child: Container(

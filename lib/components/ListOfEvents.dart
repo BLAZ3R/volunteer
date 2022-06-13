@@ -1,51 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:volunteer/components/EventInfoForm.dart';
+import 'package:volunteer/components/OrganizationInfoForm.dart';
+import 'package:volunteer/data/models/Event.dart';
+import 'package:volunteer/logic/blocs/event/event_bloc.dart';
+import 'package:volunteer/logic/blocs/event/event_event.dart';
+import 'package:volunteer/logic/blocs/event/event_state.dart';
+import 'package:volunteer/screens/eventDetailedScreen.dart';
 
-class ListOfEventsWidget extends StatelessWidget {
-  const ListOfEventsWidget({Key? key}) : super(key: key);
+class ListOfEvents extends StatelessWidget {
+  const ListOfEvents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SliverGrid(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext ctx, index) => GestureDetector(
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => GymCardPage(
-            //       company: companies[index],
-            //     ),
-            //   ),
-            // );
-          },
-          child: const EventInfoFormWidget(
-              date: "11/01/2020",
-              title: "Aitu ICODE",
-              address: "Кабанбай Батыра 20/1",
-              url:
-                  "https://tengrinews.kz/userdata/news/2021/news_443753/thumb_m/photo_368541.jpeg"),
-        ),
-        childCount: 10,
-      ),
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 240,
-        childAspectRatio: 2 / 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 32,
-      ),
-    );
+    context.read<EventBloc>().add(
+          EventFetched(),
+        );
+    return BlocBuilder<EventBloc, EventState>(
+      builder: (context, state) {
+        List<Event> events = [];
 
-    // return ListView.builder(
-    //   itemCount: 1,
-    //   itemBuilder: (BuildContext context, int index) {
-    //     return const EventInfoFormWidget(
-    //         date: "11/01/2020",
-    //         title: "Aitu ICODE",
-    //         address: "Кабанбай Батыра 20/1",
-    //         url:
-    //             "https://tengrinews.kz/userdata/news/2021/news_443753/thumb_m/photo_368541.jpeg");
-    //   },
-    // );
+        if (state is EventLoadFailure) {
+          return Text(state.errorMessage);
+        }
+        if (state is EventLoadInProgress) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (state is EventLoadSuccess) {
+          events = state.events;
+        }
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 240,
+            childAspectRatio: 2 / 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 32,
+          ),
+          itemCount: events.length,
+          itemBuilder: (BuildContext context, int index) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) =>
+                            EventDetailedScreen(event: events[index])));
+              },
+              child: EventInfoFormWidget(
+                date: events[index].date,
+                url: events[index].image,
+                address: events[index].city,
+                title: events[index].name,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

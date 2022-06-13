@@ -4,12 +4,19 @@ import 'package:volunteer/constants/MainTheme.dart';
 
 import 'TextFieldContainer.dart';
 
-class RoundedInputField extends StatelessWidget {
+final maskFormatter = MaskTextInputFormatter(
+  mask: '##/##/####',
+  filter: {
+    "#": RegExp(r'[0-9]'),
+  },
+);
+
+class RoundedDateField extends StatelessWidget {
   String hintText;
   final IconData icon;
   FormFieldValidator<String>? validator;
   final ValueChanged<String> onChanged;
-  RoundedInputField({
+  RoundedDateField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -24,6 +31,7 @@ class RoundedInputField extends StatelessWidget {
         onChanged: onChanged,
         validator: validator,
         cursorColor: Colors.black,
+        inputFormatters: [maskFormatter],
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black, width: 1.0),

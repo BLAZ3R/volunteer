@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:volunteer/components/RoundedButton.dart';
 import 'package:volunteer/components/TextFieldContainer.dart';
 
@@ -49,13 +50,7 @@ class _LoginViewState extends State<LoginView> {
           final formStatus = state.formStatus;
 
           if (formStatus is SubmissionSuccess) {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NavBarScreen(
-                          initialPage: 'HomeScreen',
-                        )),
-                (route) => false);
+            Phoenix.rebirth(context);
           }
         },
         child: SafeArea(

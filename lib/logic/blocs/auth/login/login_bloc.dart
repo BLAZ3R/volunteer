@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:volunteer/data/api/AuthApi.dart';
 import 'package:volunteer/data/models/LoginRequest.dart';
+import 'package:volunteer/data/storage/user_shared_preferences.dart';
 import 'package:volunteer/logic/blocs/auth/login/login_event.dart';
 import 'package:volunteer/logic/blocs/form_submission_status.dart';
 
@@ -31,6 +32,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         bool val = await authRepo
             .login(LoginRequest(email: state.email, password: state.password));
         if (val) {
+          UserSharedPreferences.setEmail(state.email);
           yield state.copyWith(formStatus: SubmissionSuccess());
         }
       } catch (e) {

@@ -25,11 +25,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (event is UserFetched) {
       yield UsersLoadInProgress();
       try {
-        print("YES");
         final response = await _userApi.getUserData();
-        print(response.firstName);
         yield UserLoadSuccess(user: response);
-        print("res");
+      } catch (e) {
+        yield UserLoadFailure(errorMessage: e.toString());
+      }
+    } else if (event is OrganizersFetched) {
+      yield UsersLoadInProgress();
+      try {
+        final response = await _userApi.getOrganisers();
+        yield UsersLoadSuccess(users: response);
       } catch (e) {
         yield UserLoadFailure(errorMessage: e.toString());
       }

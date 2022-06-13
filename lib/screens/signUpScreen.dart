@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 // import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:volunteer/components/RoundedButton.dart';
 import 'package:volunteer/components/RoundedInputField.dart';
@@ -8,9 +9,17 @@ import 'package:volunteer/components/TextFieldContainer.dart';
 import 'package:volunteer/data/api/AuthApi.dart';
 import 'package:volunteer/logic/util/util.dart';
 
+import '../components/RoundedDateField.dart';
 import '../constants/MainTheme.dart';
 import '../data/models/User.dart';
 import 'navbarScreen.dart';
+
+final maskFormatter = MaskTextInputFormatter(
+  mask: '##/##/####',
+  filter: {
+    "#": RegExp(r'[0-9]'),
+  },
+);
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -26,23 +35,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String _sName;
   late String _email;
   late String _phone;
+  int? _index;
   late String _date;
   late String _password;
+  late String _organizationName;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _index = 0;
     _name = "";
     _sName = "";
     _email = "";
     _phone = "";
     _date = "";
     _password = "";
+    _organizationName = "";
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -52,6 +67,68 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Container(
+                  width: size.width,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          setState(() {
+                            _index = 0;
+                          });
+                        },
+                        child: Container(
+                          width: _index == 0
+                              ? size.width * 0.45
+                              : size.width * 0.43,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: _index == 0 ? Colors.white : Colors.grey,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Text('Волонтер',
+                                textAlign: TextAlign.center,
+                                style: MainTheme.of(context).bodyText1),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          setState(() {
+                            _index = 1;
+                          });
+                        },
+                        child: Container(
+                          width: _index == 1
+                              ? size.width * 0.45
+                              : size.width * 0.43,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: _index == 1 ? Colors.white : Colors.grey,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Text('Организация',
+                                textAlign: TextAlign.center,
+                                style: MainTheme.of(context).bodyText1),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 RoundedInputField(
                   hintText: "Имя",
                   onChanged: (value) {
@@ -68,6 +145,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validator: (value) =>
                       _sName.length > 1 ? null : 'Заполните поле',
                 ),
+                if (_index == 1)
+                  RoundedInputField(
+                    hintText: "Название организации",
+                    onChanged: (value) {
+                      _organizationName = value;
+                    },
+                    validator: (value) => _organizationName.length > 1
+                        ? null
+                        : 'Заполните название организации',
+                  ),
                 RoundedInputField(
                   hintText: "Почта",
                   onChanged: (value) {
@@ -86,8 +173,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onChanged: (value) {
                       _phone = value;
                     }),
-                RoundedInputField(
-                  hintText: "Дата рождения",
+                RoundedDateField(
+                  hintText: "Дата рождения день/месяц/год",
                   onChanged: (value) {
                     _date = value;
                   },
@@ -112,8 +199,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             secondName: _sName,
                             password: _password,
                             dateOfBirthday: _date,
+                            organizationName: _organizationName,
                             phoneNumber: _phone.replaceAll(' ', ''));
-                        bool result = await AuthApi().createVolunteer(user);
+
+                        bool result = _index == 0
+                            ? await AuthApi().createVolunteer(user)
+                            : await AuthApi().createOrganization(user);
                         if (result) {
                           Navigator.pop(context);
                           showSnackbar(context, "Аккаунт создан");
